@@ -18,7 +18,7 @@ public class ProductoController {
 
 	@Autowired
 	private Environment env;
-	
+
 	@Value("${server.port}")
 	private Integer port;
 
@@ -28,23 +28,31 @@ public class ProductoController {
 	@GetMapping("/listar")
 	public List<Producto> listar() {
 		return productoService.findAll().stream().map(producto -> {
-			//usando
+			// usando
 			// producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
-			
-			//Usando RestTemplate
+
+			// Usando RestTemplate
 			producto.setPort(port);
 			return producto;
 		}).collect(Collectors.toList());
 	}
 
 	@GetMapping("/ver/{id}")
-	public Producto detale(@PathVariable Long id) {
+	public Producto detale(@PathVariable Long id) throws Exception {
 		Producto producto = productoService.findById(id);
-		//usando
-		//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
-		
-		//Usando RestTemplate
+		// usando
+		// producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+
+		// Usando RestTemplate
 		producto.setPort(port);
+
+		// simular un error
+//		boolean ok = false;
+//
+//		if (ok) {
+//			throw new Exception("No se pudo cargar elproducto");
+//		}
+
 		return producto;
 	}
 
