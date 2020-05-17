@@ -38,13 +38,21 @@ public class ProductoController {
 	}
 
 	@GetMapping("/ver/{id}")
-	public Producto detale(@PathVariable Long id) throws Exception {
+	public Producto detale(@PathVariable Long id) {
 		Producto producto = productoService.findById(id);
 		// usando
 		// producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
 
 		// Usando RestTemplate
 		producto.setPort(port);
+
+		// PARAPROBAER EL TIMEOUT
+//		try {
+//			Thread.sleep(2000L);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		// simular un error
 //		boolean ok = false;
